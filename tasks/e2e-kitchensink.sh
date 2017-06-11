@@ -43,7 +43,7 @@ function handle_exit {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-app/index.js "$@"
+  node "$temp_cli_path"/node_modules/create-divi-extension/index.js "$@"
 }
 
 # Check for the existence of one or more files.
@@ -75,9 +75,9 @@ then
   # Issues: 
   #    https://github.com/yarnpkg/yarn/issues/2591
   #    https://github.com/appveyor/ci/issues/1576
-  #    https://github.com/facebookincubator/create-react-app/pull/2400
+  #    https://github.com/lots0logs/create-divi-extension/pull/2400
   # When removing workaround, you may run into
-  #    https://github.com/facebookincubator/create-react-app/issues/2030
+  #    https://github.com/lots0logs/create-divi-extension/issues/2030
   case "$(uname -s)" in
     *CYGWIN*|MSYS*|MINGW*) yarn=yarn.cmd;;
     *) yarn=yarnpkg;;
@@ -111,11 +111,11 @@ npm run build:prod
 cd ../..
 
 # ******************************************************************************
-# First, pack react-scripts and create-react-app so we can use them.
+# First, pack react-scripts and create-divi-extension so we can use them.
 # ******************************************************************************
 
 # Pack CLI
-cd "$root_path"/packages/create-react-app
+cd "$root_path"/packages/create-divi-extension
 cli_path=$PWD/`npm pack`
 
 # Go to react-scripts
@@ -152,7 +152,7 @@ cd "$temp_module_path"
 npm install test-integrity@^2.0.1
 
 # ******************************************************************************
-# Now that we used create-react-app to create an app depending on react-scripts,
+# Now that we used create-divi-extension to create an app depending on react-scripts,
 # let's make sure all npm scripts are in the working state.
 # ******************************************************************************
 

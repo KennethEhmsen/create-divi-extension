@@ -67,7 +67,7 @@ function checkDependencies {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-app/index.js $*
+  node "$temp_cli_path"/node_modules/create-divi-extension/index.js $*
 }
 
 # Exit the script with a helpful error message when any error is encountered
@@ -92,9 +92,9 @@ then
   # Issues: 
   #    https://github.com/yarnpkg/yarn/issues/2591
   #    https://github.com/appveyor/ci/issues/1576
-  #    https://github.com/facebookincubator/create-react-app/pull/2400
+  #    https://github.com/lots0logs/create-divi-extension/pull/2400
   # When removing workaround, you may run into
-  #    https://github.com/facebookincubator/create-react-app/issues/2030
+  #    https://github.com/lots0logs/create-divi-extension/issues/2030
   case "$(uname -s)" in
     *CYGWIN*|MSYS*|MINGW*) yarn=yarn.cmd;;
     *) yarn=yarnpkg;;
@@ -128,11 +128,11 @@ npm run build:prod
 cd ../..
 
 # ******************************************************************************
-# First, pack and install create-react-app.
+# First, pack and install create-divi-extension.
 # ******************************************************************************
 
 # Pack CLI
-cd "$root_path"/packages/create-react-app
+cd "$root_path"/packages/create-divi-extension
 cli_path=$PWD/`npm pack`
 
 # Install the CLI in a temporary location

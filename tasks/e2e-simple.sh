@@ -42,7 +42,7 @@ function handle_exit {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-app/index.js "$@"
+  node "$temp_cli_path"/node_modules/create-divi-extension/index.js "$@"
 }
 
 # Check for the existence of one or more files.
@@ -74,9 +74,9 @@ then
   # Issues: 
   #    https://github.com/yarnpkg/yarn/issues/2591
   #    https://github.com/appveyor/ci/issues/1576
-  #    https://github.com/facebookincubator/create-react-app/pull/2400
+  #    https://github.com/lots0logs/create-divi-extension/pull/2400
   # When removing workaround, you may run into
-  #    https://github.com/facebookincubator/create-react-app/issues/2030
+  #    https://github.com/lots0logs/create-divi-extension/issues/2030
   case "$(uname -s)" in
     *CYGWIN*|MSYS*|MINGW*) yarn=yarn.cmd;;
     *) yarn=yarnpkg;;
@@ -95,8 +95,8 @@ grep -v "lerna bootstrap" package.json > temp && mv temp package.json
 npm install
 mv package.json.bak package.json
 
-# We need to install create-react-app deps to test it
-cd "$root_path"/packages/create-react-app
+# We need to install create-divi-extension deps to test it
+cd "$root_path"/packages/create-divi-extension
 npm install
 cd "$root_path"
 
@@ -107,7 +107,7 @@ nodeMinor=`echo $nodeVersion | cut -d. -f2`
 if [[ nodeMajor -lt 6 ]]
 then
   cd $temp_app_path
-  err_output=`node "$root_path"/packages/create-react-app/index.js test-node-version 2>&1 > /dev/null || echo ''`
+  err_output=`node "$root_path"/packages/create-divi-extension/index.js test-node-version 2>&1 > /dev/null || echo ''`
   [[ $err_output =~ You\ are\ running\ Node ]] && exit 0 || exit 1
 fi
 
@@ -123,7 +123,7 @@ fi
 
 # Lint own code
 ./node_modules/.bin/eslint --max-warnings 0 packages/babel-preset-react-app/
-./node_modules/.bin/eslint --max-warnings 0 packages/create-react-app/
+./node_modules/.bin/eslint --max-warnings 0 packages/create-divi-extension/
 ./node_modules/.bin/eslint --max-warnings 0 packages/eslint-config-react-app/
 ./node_modules/.bin/eslint --max-warnings 0 packages/react-dev-utils/
 ./node_modules/.bin/eslint --max-warnings 0 packages/react-scripts/
@@ -134,7 +134,7 @@ npm run build:prod
 cd ../..
 
 # ******************************************************************************
-# First, test the create-react-app development environment.
+# First, test the create-divi-extension development environment.
 # This does not affect our users but makes sure we can develop it.
 # ******************************************************************************
 
@@ -156,11 +156,11 @@ CI=true npm test
 npm start -- --smoke-test
 
 # ******************************************************************************
-# Next, pack react-scripts and create-react-app so we can verify they work.
+# Next, pack react-scripts and create-divi-extension so we can verify they work.
 # ******************************************************************************
 
 # Pack CLI
-cd "$root_path"/packages/create-react-app
+cd "$root_path"/packages/create-divi-extension
 cli_path=$PWD/`npm pack`
 
 # Go to react-scripts
@@ -199,7 +199,7 @@ cd $temp_app_path
 create_react_app --scripts-version="$scripts_path" test-app
 
 # ******************************************************************************
-# Now that we used create-react-app to create an app depending on react-scripts,
+# Now that we used create-divi-extension to create an app depending on react-scripts,
 # let's make sure all npm scripts are in the working state.
 # ******************************************************************************
 
