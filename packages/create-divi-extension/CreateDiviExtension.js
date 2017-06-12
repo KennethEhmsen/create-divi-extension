@@ -582,17 +582,22 @@ function checkIfOnline( useYarn ) {
 
 function finalize_extension_files( root, appName ) {
 	let prefix = appName.replace( /^divi/igm, '' );
+	let offset = 0;
 
-	const end   = 4;
+	const has_dash       = prefix.indexOf( '-' ) > -1;
+	const has_underscore = prefix.indexOf( '_' ) > -1;
+
+	has_dash && offset++;
+	has_underscore && offset++;
+
+	const end   = 4 + offset;
 	const start = ['-', '_'].includes( prefix[0] ) ? 1 : 0;
 
 	prefix = prefix.substring( start, end ).toLowerCase();
 
 	console.log( `prefix is: ${prefix}` );
 
-	if ( ['-', '_'].includes( prefix[prefix.length - 1] ) ) {
-		prefix = prefix.substring( 0, prefix.length - 1 );
-	}
+	['-', '_'].forEach( char => prefix.replace( char, '' ) );
 
 	const PREFIX = prefix.toUpperCase();
 	const Prefix = PREFIX.charAt( 0 ) + prefix.slice( 1 );
