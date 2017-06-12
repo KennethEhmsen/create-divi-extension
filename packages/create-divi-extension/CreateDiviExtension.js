@@ -266,7 +266,7 @@ function run( root, appName, version, verbose, originalDirectory, template, useY
 				'init.js'
 			);
 
-			const init        = require( scriptsPath );
+			const init = require( scriptsPath );
 			init( root, appName, verbose, originalDirectory, template );
 
 			finalize_extension_files( root, appName );
@@ -581,24 +581,26 @@ function checkIfOnline( useYarn ) {
 }
 
 function finalize_extension_files( root, appName ) {
-	let end    = 4;
 	let prefix = appName.replace( /^divi/igm, '' );
-	let start  = ['-', '_'].includes( prefix[0] ) ? 1 : 0;
+
+	const end   = 4;
+	const start = ['-', '_'].includes( prefix[0] ) ? 1 : 0;
 
 	prefix = prefix.substring( start, end ).toLowerCase();
 
-	console.log(`prefix is: ${prefix}`);
+	console.log( `prefix is: ${prefix}` );
 
 	if ( ['-', '_'].includes( prefix[prefix.length - 1] ) ) {
-		prefix = prefix.substring( 0, prefix.length -1 );
+		prefix = prefix.substring( 0, prefix.length - 1 );
 	}
 
 	const PREFIX = prefix.toUpperCase();
-	const Prefix = PREFIX.charAt(0) + prefix.slice(1);
-	const files = [
+	const Prefix = PREFIX.charAt( 0 ) + prefix.slice( 1 );
+	const files  = [
 		'template.php',
 		'module/loader.php',
-		'module/__Prefix_Custom.php',
+		'module/HelloWorld/HelloWorld.php',
+		'module/loader.jsx',
 	];
 
 	for ( let file of files ) {
@@ -618,7 +620,7 @@ function finalize_extension_files( root, appName ) {
 		fs.writeFileSync( file, output, 'utf8' );
 
 		if ( is_main_file ) {
-			fs.move( file, file.replace('template', path.basename( path.dirname( file ) ) ), err => {
+			fs.move( file, file.replace( 'template', path.basename( path.dirname( file ) ) ), err => {
 				if ( err ) {
 					console.error( err );
 				}
