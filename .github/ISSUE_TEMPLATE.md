@@ -55,5 +55,5 @@ Alternatively, you could copy your app that experiences the problem and start re
 
 Push to GitHub and paste the link here.
 
-By doing this, you're helping the Create React App contributors a big time!
+By doing this, you're helping the Create Divi Extension contributors a big time!
 Demonstrable issues gets fixed faster.

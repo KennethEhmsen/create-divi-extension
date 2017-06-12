@@ -1,11 +1,11 @@
-# Create React App [![Build Status](https://travis-ci.org/lots0logs/create-divi-extension.svg?branch=master)](https://travis-ci.org/lots0logs/create-divi-extension)
+# Create Divi Extension [![Build Status](https://travis-ci.org/lots0logs/create-divi-extension.svg?branch=master)](https://travis-ci.org/lots0logs/create-divi-extension)
 
-Create React apps with no build configuration.
+Create Divi Extensions with no build configuration.
 
 * [Getting Started](#getting-started) – How to create a new app.
-* [User Guide](https://github.com/lots0logs/create-divi-extension/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
+* [User Guide](https://github.com/lots0logs/create-divi-extension/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create Divi Extension.
 
-Create React App works on macOS, Windows, and Linux.<br>
+Create Divi Extension works on macOS, Windows, and Linux.<br>
 If something doesn’t work please [file an issue](https://github.com/lots0logs/create-divi-extension/issues/new).
 
 ## Quick Overview
@@ -42,7 +42,7 @@ npm install -g create-divi-extension
 
 **You’ll need to have Node >= 6 on your machine**. You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
 
-**This tool doesn’t assume a Node backend**. The Node installation is only required for Create React App itself.
+**This tool doesn’t assume a Node backend**. The Node installation is only required for Create Divi Extension itself.
 
 ### Creating an App
 
@@ -196,7 +196,7 @@ Some of them might get added in the future if they are stable, are useful to maj
 
 ## What’s Inside?
 
-The tools used by Create React App are subject to change.
+The tools used by Create Divi Extension are subject to change.
 Currently it is a thin layer on top of many amazing community projects, such as:
 
 * [webpack](https://webpack.js.org/) with [webpack-dev-server](https://github.com/webpack/webpack-dev-server), [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) and [style-loader](https://github.com/webpack/style-loader)

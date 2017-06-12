@@ -145,7 +145,7 @@ function createApp(name, verbose, version, template) {
     process.exit(1);
   }
 
-  console.log(`Creating a new React app in ${chalk.green(root)}.`);
+  console.log(`Creating a new Divi extension in ${chalk.green(root)}.`);
   console.log();
 
   const packageJson = {
@@ -273,7 +273,9 @@ function run(
 
       // Since react-scripts has been installed with --save
       // we need to move it into devDependencies and rewrite package.json
-      // also ensure react dependencies have caret version range
+      // also ensure react dependencies have caret version range. We also need
+      // to move react and react-dom to devDependencies because we don't want them
+      // included in production bundles.
       fixDependencies(packageName);
 
       const scriptsPath = path.resolve(
@@ -411,8 +413,9 @@ function getPackageName(installPackage) {
         return packageName;
       })
       .catch(err => {
-        // The package name could be with or without semver version, e.g. react-scripts-0.2.0-alpha.1.tgz
-        // However, this function returns package name only without semver version.
+        // The package name could be with or without semver version, e.g.
+        // react-scripts-0.2.0-alpha.1.tgz However, this function returns package name
+        // only without semver version.
         console.log(
           `Could not extract the package name from the archive: ${err.message}`
         );
@@ -469,7 +472,7 @@ function checkNodeVersion(packageName) {
     console.error(
       chalk.red(
         'You are running Node %s.\n' +
-          'Create React App requires Node %s or higher. \n' +
+          'Create Divi Extension requires Node %s or higher. \n' +
           'Please update your version of Node.'
       ),
       process.version,
@@ -491,8 +494,8 @@ function checkAppName(appName) {
   }
 
   // TODO: there should be a single place that holds the dependencies
-  const dependencies = ['react', 'react-dom'];
-  const devDependencies = ['react-scripts'];
+  const dependencies = [];
+  const devDependencies = ['react', 'react-dom', 'react-scripts'];
   const allDependencies = dependencies.concat(devDependencies).sort();
   if (allDependencies.indexOf(appName) >= 0) {
     console.error(
@@ -545,10 +548,19 @@ function fixDependencies(packageName) {
 
   packageJson.devDependencies = packageJson.devDependencies || {};
   packageJson.devDependencies[packageName] = packageVersion;
+
   delete packageJson.dependencies[packageName];
 
-  makeCaretRange(packageJson.dependencies, 'react');
-  makeCaretRange(packageJson.dependencies, 'react-dom');
+  packageJson.devDependencies['react'] = packageJson.dependencies['react'];
+  packageJson.devDependencies['react-dom'] = packageJson.dependencies[
+    'react-dom'
+  ];
+
+  delete packageJson.dependencies['react'];
+  delete packageJson.dependencies['react-dom'];
+
+  makeCaretRange(packageJson.devDependencies, 'react');
+  makeCaretRange(packageJson.devDependencies, 'react-dom');
 
   fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2));
 }
