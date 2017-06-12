@@ -50,6 +50,7 @@ const unpack = require('tar-pack').unpack;
 const hyperquest = require('hyperquest');
 
 const packageJson = require('./package.json');
+const template = path.join(__dirname, 'template');
 
 let projectName;
 
@@ -116,22 +117,9 @@ function printValidationResults(results) {
   }
 }
 
-const hiddenProgram = new commander.Command()
-  .option(
-    '--internal-testing-template <path-to-template>',
-    '(internal usage only, DO NOT RELY ON THIS) ' +
-      'use a non-standard application template'
-  )
-  .parse(process.argv);
+createApp(projectName, program.verbose, program.scriptsVersion);
 
-createApp(
-  projectName,
-  program.verbose,
-  program.scriptsVersion,
-  hiddenProgram.internalTestingTemplate
-);
-
-function createApp(name, verbose, version, template) {
+function createApp(name, verbose, version) {
   const root = path.resolve(name);
   const appName = path.basename(root);
 
@@ -285,6 +273,7 @@ function run(
         'scripts',
         'init.js'
       );
+
       const init = require(scriptsPath);
       init(root, appName, verbose, originalDirectory, template);
 
