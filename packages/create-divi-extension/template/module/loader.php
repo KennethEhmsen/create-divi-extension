@@ -5,4 +5,4 @@ if ( ! class_exists( 'ET_Builder_Module' ) ) {
 }
 
 // Load custom modules (add more below as needed)
-require_once '__Prefix_Custom.php';
+require_once 'HelloWorld/HelloWorld.php';

@@ -603,7 +603,6 @@ function finalize_extension_files( root, appName ) {
 
 	for ( let file of files ) {
 		const is_main_file = 'template.php' === file;
-		const is_module    = 'module/__Prefix_Custom.php' === file;
 
 		file = path.join( root, file );
 
@@ -620,12 +619,6 @@ function finalize_extension_files( root, appName ) {
 
 		if ( is_main_file ) {
 			fs.move( file, file.replace('template', path.basename( path.dirname( file ) ) ), err => {
-				if ( err ) {
-					console.error( err );
-				}
-			} );
-		} else if ( is_module ) {
-			fs.move( file, file.replace('__Prefix', Prefix ), err => {
 				if ( err ) {
 					console.error( err );
 				}
