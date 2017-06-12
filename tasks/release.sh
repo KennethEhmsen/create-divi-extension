@@ -40,9 +40,6 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 cd "$root_path"
-# Compile
-cd packages/react-error-overlay/
-npm run build:prod
-cd ../..
+
 # Go!
 ./node_modules/.bin/lerna publish --independent "$@"
