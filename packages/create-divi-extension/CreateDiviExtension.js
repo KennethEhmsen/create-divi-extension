@@ -597,7 +597,7 @@ function finalize_extension_files( root, appName ) {
 
 	console.log( `prefix is: ${prefix}` );
 
-	['-', '_'].forEach( char => prefix.replace( char, '' ) );
+	['-', '_'].forEach( char => prefix = prefix.replace( char, '' ) );
 
 	const PREFIX = prefix.toUpperCase();
 	const Prefix = PREFIX.charAt( 0 ) + prefix.slice( 1 );
