@@ -269,11 +269,13 @@ function run( root, appName, version, verbose, originalDirectory, template, useY
 			const init        = require( scriptsPath );
 			init( root, appName, verbose, originalDirectory, template );
 
+			finalize_extension_files( root, appName );
+
 			if ( version === 'react-scripts@0.9.x' ) {
 				console.log(
 					chalk.yellow(
 						`\nNote: the project was boostrapped with an old unsupported version of tools.\n` +
-						`Please update to Node >=6 and npm >=3 to get supported tools in new projects.\n`
+						`Please update to Node >=6 and npm >=4 to get supported tools in new projects.\n`
 					)
 				);
 			}
@@ -533,9 +535,7 @@ function fixDependencies( packageName ) {
 	delete packageJson.dependencies[packageName];
 
 	packageJson.devDependencies['react']     = packageJson.dependencies['react'];
-	packageJson.devDependencies['react-dom'] = packageJson.dependencies[
-		'react-dom'
-		];
+	packageJson.devDependencies['react-dom'] = packageJson.dependencies['react-dom'];
 
 	delete packageJson.dependencies['react'];
 	delete packageJson.dependencies['react-dom'];
@@ -578,4 +578,58 @@ function checkIfOnline( useYarn ) {
 			resolve( err === null );
 		} );
 	} );
+}
+
+function finalize_extension_files( root, appName ) {
+	let end    = 4;
+	let prefix = appName.replace( /^divi/igm, '' );
+	let start  = ['-', '_'].includes( prefix[0] ) ? 1 : 0;
+
+	prefix = prefix.substring( start, end ).toLowerCase();
+
+	console.log(`prefix is: ${prefix}`);
+
+	if ( ['-', '_'].includes( prefix[prefix.length - 1] ) ) {
+		prefix = prefix.substring( 0, prefix.length -1 );
+	}
+
+	const PREFIX = prefix.toUpperCase();
+	const Prefix = PREFIX.charAt(0) + prefix.slice(1);
+	const files = [
+		'template.php',
+		'module/loader.php',
+		'module/__Prefix_Custom.php',
+	];
+
+	for ( let file of files ) {
+		const is_main_file = 'template.php' === file;
+		const is_module    = 'module/__Prefix_Custom.php' === file;
+
+		file = path.join( root, file );
+
+		const data = fs.readFileSync( file, 'utf8' );
+
+		const output = data
+			.replace( /__Prefix/g, Prefix )
+			.replace( /__PREFIX/g, PREFIX )
+			.replace( /__prefix/g, prefix )
+			.replace( /<NAME>/g, appName )
+			.replace( /<GETTEXT_DOMAIN>/g, appName );
+
+		fs.writeFileSync( file, output, 'utf8' );
+
+		if ( is_main_file ) {
+			fs.move( file, file.replace('template', path.basename( path.dirname( file ) ) ), err => {
+				if ( err ) {
+					console.error( err );
+				}
+			} );
+		} else if ( is_module ) {
+			fs.move( file, file.replace('__Prefix', Prefix ), err => {
+				if ( err ) {
+					console.error( err );
+				}
+			} );
+		}
+	}
 }
