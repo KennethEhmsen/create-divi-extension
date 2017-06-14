@@ -137,7 +137,7 @@ function createApp( name, verbose, version ) {
 	console.log();
 
 	const packageJson = {
-		name: appName,
+		name:    appName,
 		version: '0.1.0',
 		private: true,
 	};
@@ -233,7 +233,7 @@ function run( root, appName, version, verbose, originalDirectory, template, useY
 	console.log( 'Installing packages. This might take a couple minutes.' );
 	getPackageName( packageToInstall )
 		.then( packageName => checkIfOnline( useYarn ).then( isOnline => ({
-			isOnline: isOnline,
+			isOnline:    isOnline,
 			packageName: packageName,
 		}) ) )
 		.then( info => {
@@ -270,6 +270,10 @@ function run( root, appName, version, verbose, originalDirectory, template, useY
 			init( root, appName, verbose, originalDirectory, template );
 
 			finalize_extension_files( root, appName );
+
+			const ejectPath = path.resolve( __dirname, 'eject.js' );
+			const eject     = require( ejectPath );
+			eject( root );
 
 			if ( version === 'react-scripts@0.9.x' ) {
 				console.log(
@@ -348,7 +352,7 @@ function getTemporaryDirectory() {
 				reject( err );
 			} else {
 				resolve( {
-					tmpdir: tmpdir,
+					tmpdir:  tmpdir,
 					cleanup: () => {
 						try {
 							callback();
@@ -434,7 +438,7 @@ function checkNpmVersion() {
 		// ignore
 	}
 	return {
-		hasMinNpm: hasMinNpm,
+		hasMinNpm:  hasMinNpm,
 		npmVersion: npmVersion,
 	};
 }

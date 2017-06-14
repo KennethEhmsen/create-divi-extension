@@ -9,7 +9,7 @@ class __Prefix_ET_Builder_Module_HelloWorld extends ET_Builder_Module {
 	}
 
 	public function get_fields() {
-
+		return array();
 	}
 
 	public function shortcode_callback( $attrs, $content = null, $function_name ) {

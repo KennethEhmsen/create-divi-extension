@@ -33,7 +33,9 @@ define( '__PREFIX_PLUGIN_DIR', dirname( __FILE__ ) );
  * {@see 'activate_$PLUGINNAME'}
  */
 function __prefix_activate() {
-
+	// Force the backend builder to reload its template cache.
+	// This ensures that our custom modules are available for use right away.
+	et_pb_force_regenerate_templates();
 }
 register_activation_hook( __FILE__, '__prefix_activate' );
 
