@@ -1,8 +1,8 @@
 # Create Divi Extension [![Build Status](https://travis-ci.org/lots0logs/create-divi-extension.svg?branch=master)](https://travis-ci.org/lots0logs/create-divi-extension)
 
-Create Divi Extensions with no build configuration.
+Create Divi extensions with no build configuration.
 
-* [Getting Started](#getting-started) – How to create a new app.
+* [Getting Started](#getting-started) – How to create a new extension.
 * [User Guide](https://github.com/lots0logs/create-divi-extension/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create Divi Extension.
 
 Create Divi Extension works on macOS, Windows, and Linux.<br>
@@ -11,21 +11,19 @@ If something doesn’t work please [file an issue](https://github.com/lots0logs/
 ## Quick Overview
 
 ```sh
-npm install -g create-divi-extension
+sudo npm install -g create-divi-extension
 
 create-divi-extension my-extension
 cd my-extension/
-npm start
 ```
 
-Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
 When you’re ready to deploy to production, create a minified bundle with `npm run build`.
 
 <img src='https://camo.githubusercontent.com/506a5a0a33aebed2bf0d24d3999af7f582b31808/687474703a2f2f692e696d6775722e636f6d2f616d794e66434e2e706e67' width='600' alt='npm start'>
 
 ### Get Started Immediately
 
-You **don’t** need to install or configure tools like Webpack or Babel.<br>
+You **don't** need to install or configure tools like Webpack or Babel.<br>
 They are preconfigured and hidden so that you can focus on the code.
 
 Just create a project, and you’re good to go.
@@ -37,16 +35,16 @@ Just create a project, and you’re good to go.
 Install it once globally:
 
 ```sh
-npm install -g create-divi-extension
+sudo npm install -g create-divi-extension
 ```
 
-**You’ll need to have Node >= 6 on your machine**. You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
+**You'll need to have Node >= 6 on your machine**. You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
 
-**This tool doesn’t assume a Node backend**. The Node installation is only required for Create Divi Extension itself.
+**This tool doesn't assume a Node backend**. The Node installation is only required for Create Divi Extension itself.
 
-### Creating an App
+### Creating an Extension
 
-To create a new app, run:
+To create a new extension, run:
 
 ```sh
 create-divi-extension my-extension
@@ -58,22 +56,23 @@ Inside that directory, it will generate the initial project structure and instal
 
 ```
 my-extension/
-  README.md
+  languages/
+  module/
+    HelloWorld/
+      HelloWorld.jsx
+      HelloWorld.php
+      styles.scss
+    loader.jsx
+    loader.php
   node_modules/
+  scripts/
+  styles/
+  .eslintrc
+  README.md
+  my-extension.php
   package.json
-  .gitignore
-  public/
-    favicon.ico
-    index.html
-    manifest.json
-  src/
-    App.css
-    App.js
-    App.test.js
-    index.css
-    index.js
-    logo.svg
-    registerServiceWorker.js
+  webpack.config.dev.js
+  webpack.config.prod.js
 ```
 
 No configuration or complicated folder structures, just the files you need to build your app.<br>
