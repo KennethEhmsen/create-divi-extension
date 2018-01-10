@@ -19,7 +19,8 @@
   "files": [
     "template",
     "index.js",
-    "CreateDiviExtension.js"
+    "CreateDiviExtension.js",
+    "eject.js"
   ],
   "bin": {
     "create-divi-extension": "./index.js"
